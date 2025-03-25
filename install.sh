@@ -8,6 +8,7 @@ trap 'echo -e "\n${RED}Command \"${BASH_COMMAND}\" failed with exit code $?${NOC
 
 echo -e "${GREEN}Bootstrapping OS...${NOCOLOR}"
 
+# Load .env vars
 source ./.env
 export $(cut -d= -f1 ./.env)
 
