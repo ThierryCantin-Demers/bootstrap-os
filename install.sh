@@ -51,4 +51,10 @@ sudo apt --yes --force-yes install curl
 # Install Zed
 ./scripts/install_zed.sh
 
+# Install Spotify
+./scripts/install_spotify.sh
+
+# Install Docker
+./scripts/install_docker.sh
+
 echo -e "${GREEN}OS bootstrapped successfully!${NOCOLOR}"
