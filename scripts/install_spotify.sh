@@ -8,3 +8,12 @@ echo "deb https://repository.spotify.com stable non-free" | sudo tee /etc/apt/so
 # Install Spotify
 echo -e "${GREEN}Installing Spotify...${NOCOLOR}"
 sudo apt-get -y update && sudo apt-get install -y spotify-client
+
+# Check that Spotify is installed properly and fail if not
+echo -e "${GREEN}Checking that Spotify is installed properly...${NOCOLOR}"
+spotify --version
+
+if [ $? -ne 0 ]; then
+    echo "Spotify is not installed properly"
+    exit 1
+fi

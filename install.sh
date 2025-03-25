@@ -57,4 +57,7 @@ sudo apt --yes --force-yes install curl
 # Install Docker
 ./scripts/install_docker.sh
 
+# Install Discord
+./scripts/install_discord.sh
+
 echo -e "${GREEN}OS bootstrapped successfully!${NOCOLOR}"

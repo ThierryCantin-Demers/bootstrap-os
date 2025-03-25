@@ -5,6 +5,7 @@ echo -e "${GREEN}Installing Git...${NOCOLOR}"
 sudo apt --yes --force-yes install git-all
 
 # Check that git is install properly and fail if not
+echo -e "${GREEN}Checking that Git is installed properly...${NOCOLOR}"
 git --version
 if [ $? -ne 0 ]; then
     echo "Git is not installed properly"
@@ -23,6 +24,7 @@ echo -e "${GREEN}Installing GitHub CLI...${NOCOLOR}"
 	&& sudo apt install gh -y
 
 # Check that gh is install properly and fail if not
+echo -e "${GREEN}Checking that GitHub CLI is installed properly...${NOCOLOR}"
 gh --version
 if [ $? -ne 0 ]; then
     echo "github cli is not installed properly"
@@ -33,6 +35,22 @@ fi
 echo -e "${GREEN}Setting up Git...${NOCOLOR}"
 git config --global user.email "${TCD_GIT_EMAIL}"
 git config --global user.name "${TCD_GIT_NAME}"
+
+# Check that git is setup properly and fail if not
+echo -e "${GREEN}Checking that Git is setup properly...${NOCOLOR}"
+git config --get --global user.email | grep "${TCD_GIT_EMAIL}"
+
+if [ $? -ne 0 ]; then
+    echo "Git user.email is not setup properly"
+    exit 1
+fi
+
+git config  --get --global user.name | grep "${TCD_GIT_NAME}"
+
+if [ $? -ne 0 ]; then
+    echo "Git user.name is not setup properly"
+    exit 1
+fi
 
 # Connected to github
 echo -e "${GREEN}Connecting to GitHub...${NOCOLOR}"
