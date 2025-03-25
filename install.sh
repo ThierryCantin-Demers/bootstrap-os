@@ -11,30 +11,20 @@ echo -e "${GREEN}Bootstrapping OS...${NOCOLOR}"
 source ./.env
 export $(cut -d= -f1 ./.env)
 
+# Load utils
+. ./utils.sh
+
 # Check that .env vars are set
-if [ -z "${TCD_GIT_EMAIL}" ]; then
-    echo -e "${RED}TCD_GIT_EMAIL is not set${NOCOLOR}"
-    exit 1
-fi
-
-if [ -z "${TCD_GIT_NAME}" ]; then
-    echo -e "${RED}TCD_GIT_NAME is not set${NOCOLOR}"
-    exit 1
-fi
-
-if [ -z "${TCD_GITHUB_TOKEN}" ]; then
-    echo -e "${RED}TCD_GITHUB_TOKEN is not set${NOCOLOR}"
-    exit 1
-fi
-
-if [ -z "${TCD_SUDO_PASSWORD}" ]; then
-    echo -e "${RED}TCD_SUDO_PASSWORD is not set${NOCOLOR}"
-    exit 1
-fi
+check_env_var TCD_GIT_EMAIL
+check_env_var TCD_GIT_NAME
+check_env_var TCD_GITHUB_TOKEN
+check_env_var TCD_SUDO_PASSWORD
+check_env_var TCD_CLONE_PATH
+check_env_var TCD_REPOS_TO_CLONE
 
 # Provide sudo password from env var
 echo $TCD_SUDO_PASSWORD | sudo -S echo "Sudo password provided"
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+while true; do echo $TCD_SUDO_PASSWORD | sudo -S echo "Sudo password provided"; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
 # Update base packages
 echo -e "${GREEN}Updating base packages...${NOCOLOR}"
@@ -45,7 +35,7 @@ sudo apt --yes --force-yes upgrade
 echo -e "${GREEN}Installing base packages...${NOCOLOR}"
 sudo apt --yes --force-yes install curl
 
-# Install Brave and make default
+# Install Brave and make default browser
 ./scripts/install_brave.sh
 
 # Install rust
@@ -53,5 +43,11 @@ sudo apt --yes --force-yes install curl
 
 # Install git
 ./scripts/setup_git.sh
+
+# Clone desired repos
+./scripts/clone_repos.sh
+
+# Install Zed
+./scripts/install_zed.sh
 
 echo -e "${GREEN}OS bootstrapped successfully!${NOCOLOR}"
