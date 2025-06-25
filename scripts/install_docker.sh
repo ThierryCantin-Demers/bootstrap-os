@@ -21,7 +21,7 @@ sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plug
 # Install Docker Desktop
 echo -e "${GREEN}Installing Docker Desktop...${NOCOLOR}"
 sudo apt -y install gnome-terminal
-curl -fsSL https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb -o docker-desktop-amd64.deb
+curl -fSL https://desktop.docker.com/linux/main/amd64/docker-desktop-amd64.deb -o docker-desktop-amd64.deb
 sudo apt-get update
 sudo apt-get -y install ./docker-desktop-amd64.deb
 rm docker-desktop-amd64.deb
