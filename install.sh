@@ -60,4 +60,7 @@ sudo apt --yes --force-yes install curl
 # Install Discord
 ./scripts/install_discord.sh
 
+# Install Lazygit
+./scripts/install_lazygit.sh
+
 echo -e "${GREEN}OS bootstrapped successfully!${NOCOLOR}"
